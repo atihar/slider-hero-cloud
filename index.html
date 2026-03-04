@@ -1,0 +1,382 @@
+<!-- Ellianos Banana Daydream Slider — Copy this entire div -->
+<div id="ell-slider-wrapper">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+  #ell-slider-wrapper * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  #ell-slider-wrapper {
+    margin-left: calc(-1 * var(--wp--style--root--padding-left, 0px)) !important;
+    margin-right: calc(-1 * var(--wp--style--root--padding-right, 0px)) !important;
+    max-width: none !important;
+    width: auto !important;
+  }
+
+  #ell-slider-wrapper .ell-slider {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    max-height: 70vh;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(
+      180deg,
+      #6AAECF 0%,
+      #7ABBD5 12%,
+      #92C4DA 25%,
+      #BFDAE8 38%,
+      #D3E5E8 50%,
+      #E8EDD8 60%,
+      #F0E8B8 70%,
+      #F5E090 82%,
+      #F8D870 91%,
+      #FAD060 100%
+    );
+  }
+
+  #ell-slider-wrapper .ell-slider::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #ell-slider-wrapper .ell-clouds {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  #ell-slider-wrapper .ell-cloud {
+    position: absolute;
+    opacity: 0;
+    animation: ellDriftCloud linear infinite !important;
+    animation-duration: inherit !important;
+    animation-iteration-count: infinite !important;
+    animation-timing-function: linear !important;
+  }
+
+  @keyframes ellDriftCloud {
+    0%   { transform: translateX(-320px) translateY(0px);                opacity: 0; }
+    6%   { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { transform: translateX(calc(100vw + 320px)) translateY(-15px); opacity: 0; }
+  }
+
+  #ell-slider-wrapper .ell-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1425px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    padding: 0 5% !important;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity 1.2s ease, visibility 1.2s ease !important;
+    visibility: hidden;
+  }
+
+  #ell-slider-wrapper .ell-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  #ell-slider-wrapper .ell-slide .ell-slide-text {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.9s ease 0.3s, opacity 0.9s ease 0.3s !important;
+  }
+
+  #ell-slider-wrapper .ell-slide.active .ell-slide-text {
+    transform: translateY(0) !important;
+    opacity: 1;
+  }
+
+  #ell-slider-wrapper .ell-slide .ell-slide-image {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.9s ease 0.5s, opacity 0.9s ease 0.5s !important;
+  }
+
+  #ell-slider-wrapper .ell-slide.active .ell-slide-image {
+    transform: translateY(0) !important;
+    opacity: 1;
+  }
+
+  #ell-slider-wrapper .ell-slide-text {
+    max-width: 480px;
+    z-index: 2;
+  }
+
+  #ell-slider-wrapper .ell-slide-text h2 {
+    font-family: 'Gelica', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(2.2rem, 4vw, 54px);
+    line-height: 1.2;
+    color: #3B2415;
+    margin-bottom: 16px;
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #ell-slider-wrapper .ell-slide-text p {
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    color: #5A3A28;
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  #ell-slider-wrapper .ell-slide-text .ell-availability {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #7a5c4a;
+    margin-bottom: 24px;
+  }
+
+  #ell-slider-wrapper .ell-slide-text .ell-subtitle {
+    margin-bottom: 28px;
+  }
+
+  #ell-slider-wrapper .ell-btn-order {
+    display: inline-block;
+    padding: 14px 20px;
+    background-color: #8C3B2B;
+    color: #fff !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0px 5px 0px #7A3C2E;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease !important;
+    position: relative;
+    z-index: 10;
+  }
+
+  #ell-slider-wrapper .ell-btn-order:hover {
+    transform: scale(1.05) !important;
+  }
+
+  #ell-slider-wrapper .ell-slide-image {
+    flex-shrink: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #ell-slider-wrapper .ell-slide-image img {
+    max-height: 55vh;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(59, 36, 21, 0.18));
+  }
+
+  #ell-slider-wrapper .ell-dots {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+  }
+
+  #ell-slider-wrapper .ell-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(59, 36, 21, 0.25);
+    cursor: pointer;
+    transition: background 0.3s !important;
+  }
+
+  #ell-slider-wrapper .ell-dot.active {
+    background: #3B2415;
+  }
+
+  @media (max-width: 1400px) and (min-width: 861px) {
+    #ell-slider-wrapper .ell-slide {
+      padding: 0 5%;
+    }
+  }
+
+  @media (max-width: 860px) {
+    #ell-slider-wrapper .ell-slide {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 6% 60px !important;
+      gap: 16px;
+    }
+
+    #ell-slider-wrapper .ell-slide-image img {
+      max-height: 35vh;
+    }
+
+    #ell-slider-wrapper .ell-slide-text {
+      max-width: 100%;
+    }
+
+    #ell-slider-wrapper .ell-slide-text h2 {
+      font-size: clamp(1.6rem, 6vw, 2.2rem) !important;
+      line-height: 1.2 !important;
+    }
+
+    #ell-slider-wrapper .ell-slide-text p {
+      font-size: 0.9rem !important;
+    }
+  }
+</style>
+
+<div class="ell-slider">
+  <!-- Cloud layer -->
+  <div class="ell-clouds" id="ellClouds"></div>
+
+  <!-- Slide 1 -->
+  <div class="ell-slide active">
+    <div class="ell-slide-text">
+      <h2>You're Not Going Bananas: This Dream is Real.</h2>
+      <p class="ell-subtitle">Get in on these sweet sips before they drift away!</p>
+      <a href="https://order.ellianos.com/" class="ell-btn-order">Order Now</a>
+    </div>
+    <div class="ell-slide-image">
+      <img src="assets/Group-Image.png" alt="Banana drinks" style="max-height: 62vh;">
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="ell-slide">
+    <div class="ell-slide-text">
+      <h2>Banana Pudding Freezer</h2>
+      <p>Dessert, no spoons needed.</p>
+      <p class="ell-availability">Available Hot, Iced & Frozen</p>
+      <a href="https://order.ellianos.com/" class="ell-btn-order">Order Now</a>
+    </div>
+    <div class="ell-slide-image">
+      <img src="assets/banana-freeze.png" alt="Banana Pudding Freezer" style="max-height: 48vh;">
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="ell-slide">
+    <div class="ell-slide-text">
+      <h2>Banana Bread Matcha</h2>
+      <p>Enjoy a mellow moment, whenever you need it.</p>
+      <p class="ell-availability">Available Hot, Iced & Frozen</p>
+      <a href="https://order.ellianos.com/" class="ell-btn-order">Order Now</a>
+    </div>
+    <div class="ell-slide-image">
+      <img src="assets/banana-matcha.png" alt="Banana Bread Matcha">
+    </div>
+  </div>
+
+  <!-- Dots -->
+  <div class="ell-dots">
+    <div class="ell-dot active" data-slide="0"></div>
+    <div class="ell-dot" data-slide="1"></div>
+    <div class="ell-dot" data-slide="2"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // ── Cloud background ──
+  var CLOUD_SRCS = ['assets/cloud-1.png', 'assets/cloud-2.png'];
+
+  var cloudConfigs = [
+    { top: '2%',  w: 280, dur: 55, delay: 0,    opac: 0.75 },
+    { top: '8%',  w: 380, dur: 62, delay: -18,  opac: 0.75 },
+    { top: '16%', w: 210, dur: 44, delay: -8,   opac: 0.75 },
+    { top: '24%', w: 320, dur: 52, delay: -30,  opac: 0.75 },
+    { top: '35%', w: 440, dur: 68, delay: -12,  opac: 0.75 },
+    { top: '44%', w: 290, dur: 50, delay: -40,  opac: 0.75 },
+    { top: '52%', w: 360, dur: 58, delay: -25,  opac: 0.75 },
+    { top: '62%', w: 520, dur: 75, delay: -20,  opac: 0.75 },
+    { top: '68%', w: 460, dur: 80, delay: -55,  opac: 0.75 },
+    { top: '76%', w: 580, dur: 90, delay: -10,  opac: 0.75 },
+    { top: '82%', w: 500, dur: 72, delay: -38,  opac: 0.75 },
+    { top: '90%', w: 560, dur: 85, delay: -45,  opac: 0.75 },
+  ];
+
+  var cloudsEl = document.getElementById('ellClouds');
+  cloudConfigs.forEach(function(c, i) {
+    var el = document.createElement('div');
+    el.className = 'ell-cloud';
+    el.style.top = c.top;
+    el.style.setProperty('animation-duration', c.dur + 's', 'important');
+    el.style.setProperty('animation-delay', c.delay + 's', 'important');
+    el.style.setProperty('animation-iteration-count', 'infinite', 'important');
+    el.style.setProperty('animation-timing-function', 'linear', 'important');
+    var yOffset = (Math.random() - 0.5) * 30;
+    el.style.marginTop = yOffset + 'px';
+
+    var img = document.createElement('img');
+    img.src = CLOUD_SRCS[i % CLOUD_SRCS.length];
+    img.style.width = c.w + 'px';
+    img.style.opacity = c.opac;
+    img.style.display = 'block';
+    el.appendChild(img);
+    cloudsEl.appendChild(el);
+  });
+
+  // ── Slider ──
+  var wrapper = document.getElementById('ell-slider-wrapper');
+  var slides = wrapper.querySelectorAll('.ell-slide');
+  var dots = wrapper.querySelectorAll('.ell-dot');
+  var current = 0;
+  var autoTimer;
+
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    resetAuto();
+  }
+
+  function next() {
+    goTo((current + 1) % slides.length);
+  }
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(next, 5000);
+  }
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() { goTo(+dot.dataset.slide); });
+  });
+
+  // Swipe support
+  var touchStartX = 0;
+  wrapper.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+  wrapper.addEventListener('touchend', function(e) {
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? goTo((current + 1) % slides.length) : goTo((current - 1 + slides.length) % slides.length);
+    }
+  });
+
+  resetAuto();
+})();
+</script>
+
+</div>
+<!-- End Ellianos Slider -->
